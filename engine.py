@@ -41,7 +41,7 @@ class UnitBlue:
         self.reload = 'no'
         self.bullet = 'no'
         self.bullets = 5
-        self.helth = 5
+        self.health = 5
         self.orient = 'down'
         self.move(int(len(map[0]) / 2), 0, q)
 
@@ -56,8 +56,8 @@ class UnitBlue:
             self.draw(q)
 
     def destroy(self, j):
-        self.helth -= 1
-        if self.helth == 0:
+        self.health -= 1
+        if self.health == 0:
             maps[j][self.x][self.y] = 0
             score[j][0] += 1
             del self
@@ -78,7 +78,7 @@ class UnitRed:
         self.reload = 'no'
         self.bullet = ''
         self.bullets = 5
-        self.helth = 5
+        self.health = 5
         self.orient = 'up'
         self.move(int(len(map[0]) / 2), len(map) - 1, q)
 
@@ -109,8 +109,8 @@ def gen():
             map[j][i] = 3
             k -= 1
         i += 1
-    map[int(len(map[0])/2)][len(map)-1] = 1
-    map[int(len(map[0])/2)][0] = 2
+    map[int(len(map[0]) / 2)][len(map) - 1] = 1
+    map[int(len(map[0]) / 2)][0] = 2
 
 
 maps = []
