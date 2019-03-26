@@ -1,7 +1,7 @@
 import pygame
 import socket
 import gameclient
-win_width = win_height = 300
+WIN_WIDTH = WIN_HEIGHT = 300
 ip = '94.103.84.146'
 name = ''
 pygame.init()
@@ -30,28 +30,41 @@ for i in chars:
 for i in keys:
     i.append(myfont.render(i[0], False, (250, 250, 250)))
 keys = dict(keys)
-win = pygame.display.set_mode((win_width, win_height))
+win = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
 pygame.display.set_caption("Танчики")
 init = False
 
-def nameinput(ip = ip, host = False):
+
+def nameinput(ip=ip, host=False):
     run = True
     blits = []
     while run:
-        win.fill((0,0,0))
+        win.fill((0, 0, 0))
         win.blit(np, (10, 140))
         for bb in blits:
-            win.blit(bb, (12*zz, 160))
+            win.blit(bb, (12 * zz, 160))
             zz += 1
         zz = 1
         global name
         if host:
-            win.blit(pygame.font.SysFont('Comic Sans MS', 22).render('Поделитесь этим ip со своим другом', False, (250, 250, 250)), (10, win_height - 50))
+            csfont22 = pygame.font.SysFont('Comic Sans MS', 22)
+            win.blit(csfont22.render('Поделитесь этим ip со своим другом',
+                                     False,
+                                     (250, 250, 250)
+                                     ),
+                     (10, WIN_HEIGHT - 50)
+                     )
             try:
                 aa = str(socket.gethostbyname(socket.gethostname()))
-            except:
+            except Exception as e:
                 aa = '!не получается получить ваш ip!'
-            win.blit(pygame.font.SysFont('Comic Sans MS', 25).render(aa, False, (250, 250, 250)), (10, win_height - 30))
+            csfont25 = pygame.font.SysFont('Comic Sans MS', 25)
+            win.blit(csfont25.render(aa,
+                                     False,
+                                     (250, 250, 250)
+                                     ),
+                     (10, WIN_HEIGHT - 30)
+                     )
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -143,7 +156,7 @@ def nameinput(ip = ip, host = False):
                     name = name[:len(name)-1:]
                 if event.key == pygame.K_RETURN:
                     if host:
-                        #gameserv.init(name = name)
+                        # gameserv.init(name = name)
                         print('mda')
                     else:
                         loop = True
@@ -154,19 +167,27 @@ def nameinput(ip = ip, host = False):
                                 loop = False
                             except ConnectionRefusedError:
                                 if i == 0:
-                                    print('-------------------------------------------------------------------')
-                                    print("server is off, you can wait or CTRL+C and find out what's going on")
-                                    print('-------------------------------------------------------------------')
+                                    print('''
+-------------------------------------------------------------------
+server is off, you can wait or CTRL+C and find out what\'s going on
+-------------------------------------------------------------------
+''')
                                     i += 1
                             except Exception as eq:
                                 print(eq)
                         if name != '':
                             sock.send(name.encode())
                             num = sock.recv(512).decode()
-                            gameclient.init(name = name, ip = ip, sock = sock, num = num)
-                            pygame.display.set_mode((win_width, win_height))
+                            gameclient.init(
+                                name=name,
+                                ip=ip,
+                                sock=sock,
+                                num=num
+                                )
+                            pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
                             name = ''
                             run = False
+
 
 def ipinput():
     run = True
@@ -175,10 +196,10 @@ def ipinput():
         z = 1
         global ip
         ip = ''
-        win.fill((0,0,0))
+        win.fill((0, 0, 0))
         win.blit(inp, (10, 140))
         for b in blits:
-            win.blit(b, (10*z, 160))
+            win.blit(b, (10 * z, 160))
             z += 1
         pygame.display.update()
         for event in pygame.event.get():
@@ -224,25 +245,48 @@ def ipinput():
                     blits.pop()
                     ip = ip[:len(ip)-1:]
                 if event.key == pygame.K_RETURN:
-                    #nameinput(ip)
+                    # nameinput(ip)
                     print('mda')
                     run = False
+
 
 def bot():
     pass
 
+
 def k2():
     run = True
     while run:
-        win.fill((0,0,0))
-        win.blit(myfont.render('1. Хостить:', False, (250, 250, 250)),(10,120))
-        win.blit(myfont.render('2. ПРисоединица:', False, (250, 250, 250)),(10,150))
-        win.blit(pygame.font.SysFont('Comic Sans MS', 22).render('Поделитесь этим ip со своим другом', False, (250, 250, 250)), (10, win_height - 50))
+        win.fill((0, 0, 0))
+        win.blit(myfont.render('1. Хостить:',
+                               False,
+                               (250, 250, 250)
+                               ),
+                 (10, 120)
+                 )
+        win.blit(myfont.render('2. ПРисоединица:',
+                               False,
+                               (250, 250, 250)
+                               ),
+                 (10, 150)
+                 )
+        csfont22 = pygame.font.SysFont('Comic Sans MS', 22)
+        win.blit(csfont22.render('Поделитесь этим ip со своим другом',
+                                 False,
+                                 (250, 250, 250)),
+                 (10, WIN_HEIGHT - 50)
+                 )
         try:
             a = str(socket.gethostbyname(socket.gethostname()))
-        except:
+        except Exception as e:
             a = '!не получается получить ваш ip!'
-        win.blit(pygame.font.SysFont('Comic Sans MS', 25).render(a, False, (250, 250, 250)), (10, win_height - 30))
+        csfont25 = pygame.font.SysFont('Comic Sans MS', 25)
+        win.blit(csfont25.render(aa,
+                                 False,
+                                 (250, 250, 250)
+                                 ),
+                 (10, WIN_HEIGHT - 30)
+                 )
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -251,16 +295,17 @@ def k2():
                 if event.key == pygame.K_ESCAPE:
                     run = False
                 if event.key == pygame.K_1:
-                    nameinput(host = True)
+                    nameinput(host=True)
                 if event.key == pygame.K_2:
                     ipinput()
+
 
 run = True
 while run:
     try:
-        win.fill((0,0,0))
-        win.blit(create,(10,120))
-        win.blit(join,(10,150))
+        win.fill((0, 0, 0))
+        win.blit(create, (10, 120))
+        win.blit(join, (10, 150))
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -270,26 +315,35 @@ while run:
                     nameinput()
                 if event.key == pygame.K_2:
                     k2()
-                #if event.key == pygame.K_3:
-                #    loop = True
-                #    i = 0
-                #    while loop:
-                #        try:
-                #            sock = socket.create_connection((ip, 9090))
-                #            loop = False
-                #        except ConnectionRefusedError:
-                #            if i == 0:
-                #                print('-------------------------------------------------------------------')
-                #                print("server is off, you can wait or CTRL+C and find out what's going on")
-                #                print('-------------------------------------------------------------------')
-                #                i += 1
-                #        except Exception as eq:
-                #            print(eq)
-                #    sock.send('|bot'.encode())
-                #    num = sock.recv(512).decode()
-                #    print(num)
-                #    gameclient.init(name = name, ip = ip, sock = sock, num = num)
-                #    run = False
-    except:
+                """
+                if event.key == pygame.K_3:
+                    loop = True
+                    i = 0
+                    while loop:
+                        try:
+                            sock = socket.create_connection((ip, 9090))
+                            loop = False
+                        except ConnectionRefusedError:
+                            if i == 0:
+                                print('''
+-------------------------------------------------------------------
+server is off, you can wait or CTRL+C and find out what's going on
+-------------------------------------------------------------------
+''')
+                                i += 1
+                        except Exception as eq:
+                            print(eq)
+                    sock.send('|bot'.encode())
+                    num = sock.recv(512).decode()
+                    print(num)
+                    gameclient.init(
+                                    name = name,
+                                    ip = ip,
+                                    sock = sock,
+                                    num = num
+                                    )
+                    run = False
+                    """
+    except Exception as e:
         run = False
 pygame.quit()
